@@ -1,0 +1,678 @@
+/* ==========================
+   Full consolidated style.css
+   - FINAL VERSION with all requested fixes.
+   - FIX: Underlines removed from Location and Email links.
+   - NEW: Unique 'Georgia' font applied to phone numbers.
+   ========================== */
+
+/* Google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
+
+:root{
+  --theme-blue: #0077b6;
+  --light-aqua: #00b4d8;
+  --theme-grey: #6e6e6e;
+  --text-black: #111;
+}
+
+/* ==========================
+   Global
+========================== */
+* { box-sizing: border-box; }
+html,body { height:100%; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  color: #333;
+  background: #fff;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+h1,h2,h3 { margin:0 0 10px; line-height:1.1; }
+p { margin:0; }
+
+/* ==========================
+   Header / Nav (Original Style Preserved)
+========================== */
+header {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  background: var(--theme-blue);
+  padding: 12px 28px;
+  gap: 20px;
+}
+
+header .logo img {
+  height: 80px;        /* header logo small */
+  width: auto;
+  display:block;
+}
+
+nav ul {
+  list-style:none;
+  margin:0;
+  padding:0;
+  display:flex;
+  gap:18px;
+  align-items:center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration:none;
+  font-weight:700;
+}
+
+nav a:hover, nav a.active { color: var(--light-aqua); }
+
+/* ==========================
+   Hero (index) & About hero & Contact hero
+========================== */
+.hero {
+  background: url('images/clean.jpg') no-repeat center center/cover;
+  height: 400px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  color: #fff;
+  position: relative;
+}
+
+.hero .hero-content { z-index:2; }
+
+.hero h1 { font-size:3em; margin-bottom:8px; }
+.hero p  { font-size:1.15em; margin:0; }
+
+/* About hero: large centered logo over water background */
+.about-hero {
+  background: url('images/about-bg.jpg') no-repeat center center/cover;
+  height: 420px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  position: relative;
+}
+
+/* Contact hero background: REDUCED HEIGHT to bring content up */
+.contact-hero {
+  background: url('images/precise5.jpg') no-repeat center center/cover !important;
+  height: 180px; /* Drastically reduced from 400px/420px */
+}
+
+/* Hero logo */
+.about-hero .hero-logo,
+.hero .hero-logo {
+  z-index: 2;
+  width: 900px;        /* Big and visible on desktop */
+  max-width: 95%;      /* Still responsive */
+  height: auto;
+  display: block;
+  margin: 0 auto;      /* Center it */
+}
+
+
+/* ==========================
+   Our Purification Process
+========================== */
+.process, .process-section {
+  padding: 48px 20px;
+  text-align: center;
+}
+
+.process h2, .process-section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.4rem;
+  color: var(--theme-blue);
+  margin-bottom: 24px;
+}
+
+.process-steps, .process-steps-wrap {
+  display:flex;
+  justify-content:center;
+  gap:20px;
+  flex-wrap:wrap;
+}
+
+/* step/card container */
+.step, .process-step {
+  position:relative;
+  flex:1 1 300px;
+  max-width:300px;
+  border-radius:12px;
+  overflow:hidden;
+  background:#000; /* safe fallback */
+  box-shadow:0 6px 16px rgba(0,0,0,0.12);
+  cursor:pointer;
+}
+
+/* image */
+.step .step-img, .process-step img {
+  width:100%;
+  height:220px;
+  object-fit:cover;
+  display:block;
+}
+
+/* overlay that sits on top of image and contains heading + paragraph */
+.process-overlay, .step .process-overlay, .process-step .process-overlay {
+  position:absolute;
+  inset:0;                   /* top:0; right:0; bottom:0; left:0 */
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  padding:12px;
+  pointer-events:none;       /* allow hover on parent */
+}
+
+/* heading - always grey */
+.process-overlay h3,
+.step h3,
+.process-step h3 {
+  position:absolute;
+  top:12px;
+  left:12px;
+  right:12px;
+  text-align:center;
+  color: var(--theme-grey);
+  font-weight:700;
+  font-size:1.15rem;
+  z-index:2;
+  pointer-events:auto;
+}
+
+/* paragraph - hidden by default but stays inside the image (absolute bottom) */
+.process-overlay p,
+.step p,
+.process-step p {
+  position:absolute;
+  bottom:12px;
+  left:12px;
+  right:12px;
+  margin:0;
+  display:none;              /* hidden unless hover */
+  color: var(--text-black);
+  font-weight:700;
+  font-size:1.02rem;         /* slightly larger for readability */
+  line-height:1.25;
+  text-align:center;
+  z-index:2;
+  pointer-events:auto;
+  /* Adding background for contrast/readability */
+  background: rgba(255, 255, 255, 0.85); 
+  padding: 8px; 
+  border-radius: 4px;
+}
+
+/* hover to show paragraph */
+.step:hover .process-overlay p,
+.process-step:hover p,
+.step:hover p {
+  display:block;
+}
+
+/* subtle hover lift */
+.step:hover, .process-step:hover {
+  transform: translateY(-6px);
+  transition: transform .22s ease;
+}
+
+/* ensure captions never overflow outside container */
+.step, .process-step { overflow: hidden; }
+
+/* ==========================
+   Pricing
+========================== */
+.pricing {
+  background: #caf0f8;
+  padding: 44px 20px;
+  text-align:center;
+}
+
+.pricing h2 { color: var(--theme-blue); font-family: 'Montserrat', sans-serif; }
+
+/* ==========================
+   Why Choose Us (cards)
+========================== */
+.why-us, .choose-section {
+  padding:48px 20px;
+  text-align:center;
+  background: transparent;
+}
+
+.why-us-header, .choose-header { display:flex; gap:20px; align-items:center; justify-content:center; flex-wrap:wrap; margin-bottom:24px; }
+
+.section-heading, .why-us-header h2, .choose-section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size:2.4rem;
+  margin:0;
+}
+
+/* intro paragraph (left or right of heading) */
+.why-us-intro, .choose-intro {
+  max-width:600px;
+  color: var(--theme-grey);
+  font-weight:700;
+  font-size:1.05rem;
+}
+
+/* cards container */
+.why-us-cards, .choose-options {
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+/* card */
+.why-us-card, .choose-option, .card, .why-card {
+  position:relative;
+  flex: 1 1 250px;
+  max-width: 300px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.10);
+  cursor:pointer;
+  background: #fff;
+}
+
+/* image */
+.card-img, .why-us-card img, .choose-option img {
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+}
+
+/* overlay area inside card (absolute) */
+.card-overlay, .why-us-card .card-overlay, .choose-option .card-overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  align-items:center;
+  padding:12px;
+  pointer-events:none;
+}
+
+/* heading in card - grey default */
+.card-overlay h3, .why-us-card h3, .choose-option h3 {
+  position:absolute;
+  top:10px;
+  left:10px;
+  right:10px;
+  text-align:center;
+  color: var(--theme-grey);
+  font-weight:700;
+  font-size:1.15rem;
+  z-index:2;
+  pointer-events:auto;
+}
+
+/* paragraph in card - hidden by default, black bold when shown */
+.card-overlay p, .why-us-card p, .choose-option p {
+  position:absolute;
+  bottom:12px;
+  left:12px;
+  right:12px;
+  margin:0;
+  display:none;
+  color: var(--text-black);
+  font-weight:700;
+  font-size:1.02rem;
+  text-align:center;
+  z-index:2;
+  pointer-events:auto;
+  /* Adding background for contrast/readability */
+  background: rgba(255, 255, 255, 0.85); 
+  padding: 8px; 
+  border-radius: 4px;
+}
+
+/* hover behavior - show p, change heading color where required */
+.why-us-card:hover .card-overlay p,
+.choose-option:hover .card-overlay p,
+.card:hover .card-overlay p {
+  display:block;
+}
+
+.why-us-card:hover .card-overlay h3,
+.choose-option:hover .card-overlay h3,
+.card:hover .card-overlay h3 {
+  color: var(--theme-blue);
+}
+
+/* ==========================
+   The Company
+========================== */
+.the-company, .company, .company-container, .company-header {
+  padding: 40px 20px;
+  display:flex;
+  gap:24px;
+  justify-content:center;
+  align-items:center;
+  flex-wrap:wrap;
+  text-align:left;
+}
+
+.the-company h2, .company h2, .company-heading {
+  font-family: 'Lucida Sans', 'Lucida Bright', serif;
+  font-size:2rem;
+  color: var(--theme-blue);
+  margin:0;
+}
+
+.the-company p, .company p, .company-description {
+  max-width:650px;
+  color: var(--theme-grey);
+  font-weight:700;
+  font-size:1.05rem;
+  margin:0;
+}
+
+/* ==========================
+   Market Coverage
+========================== */
+.market-coverage, .coverage-section {
+  padding:48px 20px;
+  text-align:center;
+}
+
+.market-coverage h2, .market-coverage .section-heading, .coverage-heading {
+  font-family: 'Playfair Display', serif;
+  font-size:2.4rem;
+  color: var(--theme-blue);
+  margin-bottom:20px;
+}
+
+.coverage-cards, .market-cards, .market-cards-wrap {
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+/* coverage card variants */
+.coverage-card, .market-card, .county {
+  position:relative;
+  flex: 1 1 260px;
+  max-width:300px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+  background:#fff;
+  text-align:center;
+  cursor:pointer;
+}
+
+.coverage-card img, .market-card img, .county img {
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+}
+
+/* heading inside coverage card (default grey) */
+.coverage-card h3, .market-card h3, .county h3 {
+  margin:10px 12px 6px;
+  color: var(--theme-grey);
+  font-weight:700;
+  font-size:1.1rem;
+}
+
+/* optional description: hidden by default, show on hover (stays inside card) */
+.coverage-card p, .market-card p, .county p {
+  display:none;
+  position: absolute;
+  bottom: 12px;
+  left:12px;
+  right:12px;
+  margin:0;
+  color: var(--text-black);
+  font-weight:700;
+  font-size:1.02rem;
+  text-align:center;
+  z-index:2;
+  /* Adding background for contrast/readability */
+  background: rgba(255, 255, 255, 0.85); 
+  padding: 8px; 
+  border-radius: 4px;
+}
+
+.coverage-card:hover p, .market-card:hover p, .county:hover p {
+  display:block;
+}
+
+.coverage-card:hover h3, .market-card:hover h3, .county:hover h3 {
+  color: var(--theme-blue);
+}
+
+/* ==========================
+   Blog Section
+========================== */
+.blog, .blog-section {
+  padding:48px 20px;
+  text-align:center;
+}
+
+.blog h2, .blog-section h2 {
+  font-family:'Montserrat', sans-serif;
+  color: var(--theme-grey);
+  font-size:2.4rem;
+  margin-bottom:20px;
+}
+
+.blog-cards, .blog-posts {
+  display:flex;
+  gap:20px;
+  justify-content:center;
+  flex-wrap:wrap;
+}
+
+.blog-card, .blog-post {
+  position:relative;
+  flex: 1 1 260px;
+  max-width:300px;
+  border-radius:12px;
+  overflow:hidden;
+  box-shadow:0 6px 16px rgba(0,0,0,0.08);
+  background:#fff;
+  cursor:pointer;
+}
+
+/* image scale on hover for blog */
+.blog-card img, .blog-post img {
+  width:100%;
+  height:200px;
+  object-fit:cover;
+  display:block;
+  transition: transform .32s ease;
+}
+
+.blog-card:hover img, .blog-post:hover img {
+  transform: scale(1.03);
+}
+
+/* optional blog caption overlay if present */
+.blog-card .card-overlay, .blog-post .card-overlay {
+  position:absolute;
+  inset:0;
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+  padding:12px;
+  pointer-events:none;
+}
+
+.blog-card .card-overlay h3, .blog-post .card-overlay h3 {
+  display:none; /* optional; if you add h3 in overlay it will be controlled via HTML */
+}
+
+/* ==========================
+   Contact Page Styles (FINAL REVISIONS)
+========================== */
+.contact-section.no-form {
+    /* Padding set to place content close to hero/header */
+    padding: 30px 20px 60px 20px; 
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center; 
+}
+
+.contact-info {
+    flex: 0 1 600px; 
+    max-width: 600px;
+    margin-top: 10px;
+}
+
+.contact-info h2 {
+    color: var(--theme-blue);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.2rem;
+    margin-bottom: 30px;
+}
+
+/* Specific styling for the Location heading (Location) */
+.location-heading {
+    font-family: 'Montserrat', sans-serif;
+    color: var(--theme-grey); 
+    font-size: 1.6rem; 
+    margin-bottom: 15px;
+}
+
+/* Specific styling for the Location text (Voi Town, Taita-Taveta County, Kenya) */
+.location-text {
+    font-family: 'Playfair Display', serif; 
+    font-size: 1.8rem; 
+    font-weight: 700;
+    color: var(--theme-grey);
+    margin-bottom: 40px;
+    display: block; 
+    transition: color 0.2s ease;
+}
+
+/* REMOVE UNDERLINE for Location Link */
+.location-text a {
+    text-decoration: none;
+    color: inherit; /* Ensure color is inherited from parent .location-text */
+}
+
+.location-text:hover {
+    color: var(--theme-blue); /* Hover Blue */
+}
+
+
+/* Phone and WhatsApp Styling */
+.phone-group {
+    margin-bottom: 40px;
+}
+
+.phone-group h3 {
+    font-size: 1.4rem;
+    color: var(--text-black);
+    margin-bottom: 10px;
+}
+
+.phone-number {
+    font-size: 1.35rem; 
+    margin: 10px 0;
+    
+    /* NEW: Unique Georgia font for numbers */
+    font-family: Georgia, serif; 
+    font-weight: 700;
+}
+
+.phone-number a {
+    color: var(--theme-blue);
+    /* REMOVE UNDERLINE for Phone Links */
+    text-decoration: none; 
+    font-weight: inherit;
+}
+
+.whatsapp-icon {
+    color: #25D366; 
+    margin-right: 8px;
+    font-size: 1.1em;
+}
+
+/* Email text styling: Apply increased size and remove underline */
+.details-group p a[href^="mailto"] {
+    font-family: 'Lucida Sans', 'Lucida Bright', 'Arial Narrow', sans-serif; 
+    font-size: 1.35rem;
+    font-weight: 600;
+    /* REMOVE UNDERLINE for Email Link */
+    text-decoration: none; 
+}
+
+.details-group p {
+    font-size: 1.1rem; /* Base size for surrounding text */
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+
+/* ==========================
+   Footer (Original Style Preserved)
+========================== */
+footer {
+  background: var(--theme-blue);
+  color:#fff;
+  padding: 18px 28px;
+  font-size:0.95rem;
+}
+
+/* ==========================
+   Responsive tweaks
+========================== */
+@media (max-width: 1024px) {
+  .about-hero, .hero { height: 360px; }
+  .about-hero .hero-logo, .hero .hero-logo { width: 600px; max-width: 80%; }
+}
+
+@media (max-width: 900px){
+  .process-steps, .coverage-cards, .why-us-cards, .blog-cards, .blog-posts {
+    gap:16px;
+  }
+  header { padding:12px 18px; }
+  header .logo img { height:68px; }
+}
+
+@media (max-width: 768px) {
+  .about-hero, .hero { height: 300px; }
+  .about-hero .hero-logo, .hero .hero-logo { width: 400px; max-width: 75%; }
+  
+  /* Contact page responsive adjustments */
+  .contact-hero { height: 160px; }
+  .location-heading { font-size: 1.4rem; }
+  .location-text { font-size: 1.6rem; }
+  .phone-number, .details-group p a[href^="mailto"] { font-size: 1.2rem; }
+
+}
+
+@media (max-width:700px){
+  .process-steps, .coverage-cards, .why-us-cards, .blog-cards {
+    flex-direction: column;
+    align-items:center;
+  }
+  .the-company, .company-content, .company-container {
+    text-align:center;
+    flex-direction:column;
+    align-items:center;
+  }
+  /* Contact page responsive layout */
+  .contact-section.no-form {
+    padding: 20px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-hero, .hero { height: 240px; }
+  .about-hero .hero-logo, .hero .hero-logo { width: 280px; max-width: 70%; }
+}

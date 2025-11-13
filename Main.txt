@@ -1,0 +1,28 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const carousels = document.querySelectorAll(".carousel");
+
+  carousels.forEach(carousel => {
+    const images = carousel.querySelectorAll("img");
+    let currentIndex = 0;
+
+    // Ensure only first image is visible
+    images.forEach((img, index) => {
+      img.style.opacity = index === 0 ? "1" : "0";
+      img.style.transition = "opacity 1s ease-in-out"; // smooth fade
+      img.classList.toggle("active", index === 0);
+    });
+
+    setInterval(() => {
+      // Hide current
+      images[currentIndex].style.opacity = "0";
+      images[currentIndex].classList.remove("active");
+
+      // Move to next
+      currentIndex = (currentIndex + 1) % images.length;
+
+      // Show next
+      images[currentIndex].style.opacity = "1";
+      images[currentIndex].classList.add("active");
+    }, 4000); // 4 seconds
+  });
+});
